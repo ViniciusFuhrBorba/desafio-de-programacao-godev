@@ -126,13 +126,6 @@ export default {
                   console.log(resp.data);
                 });
             }
-          }
-          if (this.salaSel == 1) {
-            for (var sala5 = 1; sala5 <= this.allSalas.length; sala5++) {
-              if (sala5.id != this.salaSel && this.sala2 == 0) {
-                this.sala5 = this.allSalas[sala5].id;
-              }
-            }
             if (this.cafeSel == 2) {
               for (var cafe5 = 0; cafe5 <= this.allCafes.length; cafe5++) {
                 if (cafe5.id != this.cafeSel && this.cafe2 == 0) {
@@ -178,13 +171,6 @@ export default {
                   console.log(resp.data);
                 });
             }
-          }
-          if (this.salaSel == 3) {
-            for (var sala6 = 1; sala6 <= this.allSalas.length; sala6++) {
-              if (sala6.id != this.salaSel && this.sala2 == 0) {
-                this.sala2 = this.allSalas[sala6].id;
-              }
-            }
             if (this.cafeSel == 2) {
               for (var cafe6 = 0; cafe6 <= this.allCafes.length; cafe6++) {
                 if (cafe6.id != this.cafeSel && this.cafe2 == 0) {
@@ -227,9 +213,6 @@ export default {
                   console.log(resp.data);
                 });
             }
-          }
-          if (this.salaSel == 1) {
-            console.log("entrei2");
             if (this.cafeSel == 2) {
               for (var cafe7 = 0; cafe7 <= this.allCafes.length; cafe7++) {
                 if (cafe7.id != this.cafeSel && this.cafe2 == 0) {
@@ -272,12 +255,9 @@ export default {
                   console.log(resp.data);
                 });
             }
-          }
-          if (this.salaSel == 3) {
-            console.log("entrei3");
             if (this.cafeSel == 2) {
               console.log("entrei4");
-              for (var cafe8 = 1; cafe8 <= this.allCafes.length; cafe8++) {
+              for (var cafe8 = 0; cafe8 <= this.allCafes.length; cafe8++) {
                 if (cafe8.id != this.cafeSel && this.cafe2 == 0) {
                   this.cafe2 = this.allCafes[cafe8].id;
                 }
@@ -301,13 +281,13 @@ export default {
     },
   },
   mounted() {
-    axios.get("http://localhost:55560/api/salas").then((resp) => {
-      (this.allSalas = resp.data), console.log(resp.data);
-    });
+    axios
+      .get("http://localhost:55560/api/salas")
+      .then((resp) => (this.allSalas = resp.data));
 
-    axios.get("http://localhost:55560/api/cafes").then((resp) => {
-      (this.allCafes = resp.data), console.log(this.allCafes);
-    });
+    axios
+      .get("http://localhost:55560/api/cafes")
+      .then((resp) => (this.allCafes = resp.data));
   },
   computed: {
     carregarComboSalas: function () {
