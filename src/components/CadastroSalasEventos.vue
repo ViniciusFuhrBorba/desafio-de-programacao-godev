@@ -11,6 +11,7 @@
           type="text"
           class="placeholder"
           placeholder="Insira o nome da sala de evento"
+          v-model="nomeSala"
         />
       </div>
       <div>
@@ -19,15 +20,44 @@
           type="text"
           class="placeholder"
           placeholder="Insira a lotação da sala"
+          v-model="lotacaoSala"
         />
       </div>
-      <button id="buttonCadastrarParticipante">Cadastrar Sala de Evento</button>
+      <button id="buttonCadastrarParticipante" @click="cadastrarSala">
+        Cadastrar Sala de Evento
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+const axios = require("axios");
+export default {
+  data() {
+    return {
+      nomeSala: "",
+      lotacaoSala: "",
+      verificacaoCampos: false,
+    };
+  },
+  methods: {
+    cadastrarSala: function () {
+      if (this.nomeSala != "" && this.lotacaoSala != "") {
+        axios
+          .post("http://localhost:55560/api/salas", {
+            nome: this.nomeSala,
+            lotacao: this.lotacaoSala,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      } else {
+        this.verificacaoCampos = true;
+        console.log(this.verificacaoCampos);
+      }
+    },
+  },
+};
 </script>
 
 <style>
