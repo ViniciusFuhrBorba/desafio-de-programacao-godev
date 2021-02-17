@@ -38,24 +38,36 @@ export default {
       nomeSala: "",
       lotacaoSala: "",
       verificacaoCampos: false,
+      allSalas: [],
+      verificarQuantidade: false,
     };
   },
   methods: {
     cadastrarSala: function () {
       if (this.nomeSala != "" && this.lotacaoSala != "") {
-        axios
-          .post("http://localhost:55560/api/salas", {
-            nome: this.nomeSala,
-            lotacao: this.lotacaoSala,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
+        if (this.allSalas.length >= 2) {
+          this.verificarQuantidade = true;
+          console.log("Quantidade limite excedida");
+        } else {
+          axios
+            .post("http://localhost:55560/api/salas", {
+              nome: this.nomeSala,
+              lotacao: this.lotacaoSala,
+            })
+            .then((res) => {
+              console.log(res.data);
+            });
+        }
       } else {
         this.verificacaoCampos = true;
         console.log(this.verificacaoCampos);
       }
     },
+  },
+  mounted() {
+    axios.get("http://localhost:55560/api/salas").then((resp) => {
+      (this.allSalas = resp.data), console.log(this.allSalas);
+    });
   },
 };
 </script>

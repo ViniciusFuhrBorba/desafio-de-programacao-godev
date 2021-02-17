@@ -21,7 +21,7 @@
         />
       </div>
       <div class="pesquisa3">
-        <h2 id="pesquisa">Pesquisar Café</h2>
+        <h2 id="pesquisa">Pesquisar Espaço Café</h2>
         <input
           type="text"
           placeholder="Digite o nome do café"

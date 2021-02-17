@@ -10,7 +10,8 @@
         <input
           type="text"
           class="placeholder"
-          placeholder="Insira o nome do café"
+          placeholder="Insira o nome do espaço café"
+          v-model="nomeCafe"
         />
       </div>
       <div>
@@ -18,18 +19,56 @@
         <input
           type="text"
           class="placeholder"
-          placeholder="Insira a lotação do café"
+          placeholder="Insira a lotação do espaço café"
+          v-model="lotacaoCafe"
         />
       </div>
-      <button id="buttonCadastrarParticipante">Cadastrar Espaço Café</button>
+      <button id="buttonCadastrarParticipante" @click="cadastrarCafe">
+        Cadastrar Espaço Café
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+const axios = require("axios");
 export default {
-
-  
+  data() {
+    return {
+      nomeCafe: "",
+      lotacaoCafe: "",
+      verificacaoCampos: false,
+      allCafes: [],
+      verificarQuantidade: false,
+    };
+  },
+  methods: {
+    cadastrarCafe: function () {
+      if (this.nomeCafe != "" && this.lotacaoCafe != "") {
+        if (this.allCafes.length >= 2) {
+          this.verificarQuantidade = true;
+          console.log("Quantidade limite excedida");
+        } else {
+          axios
+            .post("http://localhost:55560/api/cafes", {
+              nome: this.nomeCafe,
+              lotacao: this.lotacaoCafe,
+            })
+            .then((res) => {
+              console.log(res.data);
+            });
+        }
+      } else {
+        this.verificacaoCampos = true;
+        console.log(this.verificacaoCampos);
+      }
+    },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:55560/api/cafes")
+      .then((resp) => (this.allCafes = resp.data));
+  },
 };
 </script>
 
@@ -57,7 +96,7 @@ input {
 #cadastro {
   margin-bottom: 50px;
 }
-#buttonCadastrarParticipante{
+#buttonCadastrarParticipante {
   margin-top: 20px;
   padding: 5px;
   border-radius: 10px;
