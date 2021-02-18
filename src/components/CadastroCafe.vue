@@ -40,6 +40,9 @@ export default {
       verificacaoCampos: false,
       allCafes: [],
       verificarQuantidade: false,
+      allSalas: [],
+      lotacaoTotal: 0,
+      mediaLotacao: 0,
     };
   },
   methods: {
@@ -47,16 +50,29 @@ export default {
       if (this.nomeCafe != "" && this.lotacaoCafe != "") {
         if (this.allCafes.length >= 2) {
           this.verificarQuantidade = true;
-          console.log("Quantidade limite excedida");
+          console.log("Quantidade limite de espaços de café excedida");
         } else {
-          axios
-            .post("http://localhost:55560/api/cafes", {
-              nome: this.nomeCafe,
-              lotacao: this.lotacaoCafe,
-            })
-            .then((res) => {
-              console.log(res.data);
-            });
+          if (this.allSalas.length < 2) {
+            console.log(
+              "É preciso realizar primeiramento o cadastro de salas antes de realizar o cadastro dos espaços de café"
+            );
+          } else {
+            if (this.lotacaoCafe < this.mediaLotacao) {
+              console.log(
+                `A lotação da sala deve ser igual ou superior a ${this.mediaLotacao}`
+              );
+            } else {
+              axios
+                .post("http://localhost:55560/api/cafes", {
+                  nome: this.nomeCafe,
+                  lotacao: this.lotacaoCafe,
+                })
+                .then((res) => {
+                  console.log(res.data);
+                });
+              location.reload();
+            }
+          }
         }
       } else {
         this.verificacaoCampos = true;
@@ -68,6 +84,30 @@ export default {
     axios
       .get("http://localhost:55560/api/cafes")
       .then((resp) => (this.allCafes = resp.data));
+    axios
+      .get("http://localhost:55560/api/salas")
+      .then((resp) => (this.allSalas = resp.data));
+  },
+  computed: {
+    tirarMediaLotacao: function () {
+      var lotacaoTotal = 0;
+      var mediaLotacao = 0;
+      var mediaLotacaoArredondada = 0;
+      for (var i = 0; i < this.allSalas.length; i++) {
+        lotacaoTotal += this.allSalas[i].lotacao;
+      }
+      mediaLotacao = lotacaoTotal / 2;
+      mediaLotacaoArredondada = Math.round(mediaLotacao);
+      return mediaLotacaoArredondada;
+    },
+  },
+  watch: {
+    tirarMediaLotacao: {
+      deep: true,
+      handler: function (newVal) {
+        this.mediaLotacao = newVal;
+      },
+    },
   },
 };
 </script>

@@ -44,11 +44,14 @@ export default {
   },
   methods: {
     cadastrarSala: function () {
+      //verifica os campos
       if (this.nomeSala != "" && this.lotacaoSala != "") {
+        //limitacao
         if (this.allSalas.length >= 2) {
           this.verificarQuantidade = true;
-          console.log("Quantidade limite excedida");
+          console.log("Quantidade limite de salas excedida");
         } else {
+          //acrescenta
           axios
             .post("http://localhost:55560/api/salas", {
               nome: this.nomeSala,
@@ -57,6 +60,7 @@ export default {
             .then((res) => {
               console.log(res.data);
             });
+          location.reload();
         }
       } else {
         this.verificacaoCampos = true;
