@@ -30,25 +30,63 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data() {
     return {
       verificacaoBtnEtapa1: true,
       verificacaoBtnEtapa2: false,
+      allParticipantes: [],
+      allParticipantesSala1: [],
+      allParticipantesSala2: [],
+      aux: [],
     };
   },
   methods: {
     finalizarEtapa1: function () {
       if (this.verificacaoBtnEtapa1 == true) {
+        for (var i = 0; i < this.allParticipantes.length; i++) {
+          if (this.allParticipantes[i].sala1 == 1) {
+            this.allParticipantesSala1.push(this.allParticipantes[i]);
+          } else {
+            this.allParticipantesSala2.push(this.allParticipantes[i]);
+          }
+        }
+        for (
+          var i2 = 0;
+          i2 < Math.ceil(this.allParticipantesSala1.length / 2);
+          i2++
+        ) {
+          this.aux.push(this.allParticipantesSala1[i2]);
+          this.allParticipantesSala1[i2] = this.allParticipantesSala2[i2];
+          this.allParticipantesSala2[i2] = this.aux[i2];
+        }
+        this.allParticipantesSala1.forEach((el) => {
+          if (el.sala2 == 2) {
+            el.sala2 = 1;
+          }
+        });
+        this.allParticipantesSala2.forEach((el) => {
+          if (el.sala2 == 1) {
+            el.sala2 = 2;
+          }
+        });
+        this.allParticipantes = [];
+        this.allParticipantes = this.allParticipantesSala1.concat(
+          this.allParticipantesSala2
+        );
+        this.allParticipantes.forEach((el) => {
+          axios.put("http://localhost:55560/api/participante/" + el.id, {
+            sala1: el.sala1,
+            sala2: el.sala2,
+          });
+        });
+        this.allParticipantes = [];
+        this.allParticipantesSala1 = [];
+        this.allParticipantesSala2 = [];
+        this.aux = [];
         this.verificacaoBtnEtapa1 = false;
         this.verificacaoBtnEtapa2 = true;
-        //pegar o vetor de todos os alunos das duas salas
-        //ver o tamanho
-        //dividir o tamanho pela metade
-        //pecorrer o vetor de cada sala ate a metade
-        //preencher outro vetor com essa metade
-        //excluir a metade do vetor principal das duas salas
-        //acrescentar nos vetores principais a metade da outra sala
       }
     },
     finalizarEtapa2: function () {
@@ -56,6 +94,11 @@ export default {
         this.verificacaoBtnEtapa2 = false;
       }
     },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:55560/api/participante")
+      .then((resp) => (this.allParticipantes = resp.data));
   },
 };
 </script>
