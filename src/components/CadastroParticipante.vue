@@ -199,8 +199,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
                 for (var cafe2 = 0; cafe2 <= this.allCafes.length; cafe2++) {
@@ -264,8 +265,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
             }
             if (this.salaSel == 2) {
@@ -336,8 +338,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
                 for (var cafe4 = 0; cafe4 <= this.allCafes.length; cafe4++) {
@@ -401,8 +404,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
             }
           } else if (
@@ -470,8 +474,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
                 for (var cafe6 = 0; cafe6 <= this.allCafes.length; cafe6++) {
@@ -530,8 +535,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
             }
             if (this.lotacaoSala2 > this.lotacaoSala1) {
@@ -593,8 +599,9 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
                 for (var cafe8 = 0; cafe8 <= this.allCafes.length; cafe8++) {
@@ -653,15 +660,16 @@ export default {
                     .put("http://localhost:55560/api/salas/" + el.id, {
                       lotacao: el.lotacao,
                     })
-                    .then(location.reload());
+                    .then((resp) => console.log(resp.data));
                 });
+                this.recarregarPagina();
               }
             }
           } else {
             console.log(
               "Não foi possível cadastrar o participante pois a lotação das salas ou dos espaços de café foram excedidas"
             );
-            location.reload();
+            this.recarregarPagina();
           }
         }
       else {
@@ -669,6 +677,11 @@ export default {
           "É necessário ter duas salas e dois espaços de café cadastrados para realizar o cadastro do participante"
         );
       }
+    },
+    recarregarPagina: function () {
+      setTimeout(function () {
+        location.reload();
+      }, 4000);
     },
   },
   mounted() {

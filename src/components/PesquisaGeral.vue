@@ -168,7 +168,7 @@
           </tbody>
           <tbody v-if="this.cafeSel == 2">
             <tr
-              v-for="participantes in participantesSala2Etapa1"
+              v-for="participantes in participantesCafe2Etapa1"
               :key="participantes.id"
             >
               <td>{{ participantes.nome }}</td>
@@ -336,21 +336,20 @@ export default {
   border: solid black 1px;
   width: 600px;
   height: 700px;
-  border-radius: 50px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 .pesquisa2 {
   margin-left: 50px;
   border: solid black 1px;
   width: 600px;
   height: 700px;
-  border-radius: 50px;
 }
 .pesquisa3 {
   margin-left: 50px;
   border: solid black 1px;
   width: 600px;
   height: 700px;
-  border-radius: 50px;
 }
 .link {
   text-align: center;
