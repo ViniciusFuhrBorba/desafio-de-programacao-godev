@@ -1,31 +1,69 @@
 <template>
-  <div class="cadastro-cafe">
+  <div class="container">
     <div>
       <a class="itens-header" href="/">Voltar</a>
     </div>
-    <div class="placeholders">
-      <h2 id="cadastro">Cadastro Espaço Café</h2>
+    <div class="elementosCadastroCafe">
+      <h3 class="tituloCadastroCafe">Cadastro Espaço Café</h3>
       <div>
         <h4>Nome do Café</h4>
-        <input
-          type="text"
-          class="placeholder"
-          placeholder="Insira o nome do espaço café"
-          v-model="nomeCafe"
-        />
+        <div class="input-group mb-4">
+          <input
+            type="text"
+            placeholder="Insira o nome do espaço café"
+            v-model="nomeCafe"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
       </div>
       <div>
         <h4>Lotação do Café</h4>
-        <input
-          type="text"
-          class="placeholder"
-          placeholder="Insira a lotação do espaço café"
-          v-model="lotacaoCafe"
-        />
+        <div class="input-group mb-4">
+          <input
+            type="text"
+            placeholder="Insira a lotação do espaço café"
+            v-model="lotacaoCafe"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
       </div>
-      <button id="buttonCadastrarParticipante" @click="cadastrarCafe">
+      <button
+        class="btn btn-primary"
+        id="buttonCadastrarCafe"
+        @click="cadastrarCafe"
+      >
         Cadastrar Espaço Café
       </button>
+      <div class="alert alert-success" role="alert" v-if="this.verificaFinal">
+        Espaço Café cadastrado com Sucesso!
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificacaoCampos"
+      >
+        Por favor preencha todos os campos acima
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificarQuantidade"
+      >
+        <h4 class="alert-heading">Erro ao Cadastrar</h4>
+        <p>Quantidade limite de espaços café excedida</p>
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificaMediaLotacao"
+      >
+        <h4 class="alert-heading">Erro ao Cadastrar</h4>
+        <p>Quantidade limite de cafés excedida</p>
+      </div>
     </div>
   </div>
 </template>
@@ -38,8 +76,10 @@ export default {
       nomeCafe: "",
       lotacaoCafe: "",
       verificacaoCampos: false,
-      allCafes: [],
       verificarQuantidade: false,
+      verificaMediaLotacao: false,
+      verificaFinal: false,
+      allCafes: [],
       allSalas: [],
       lotacaoTotal: 0,
       mediaLotacao: 0,
@@ -47,10 +87,13 @@ export default {
   },
   methods: {
     cadastrarCafe: function () {
+      this.verificarQuantidade = false;
+      this.verificaMediaLotacao = false;
+      this.verificaFinal = false;
+      this.verificacaoCampos = false;
       if (this.nomeCafe != "" && this.lotacaoCafe != "") {
         if (this.allCafes.length >= 2) {
           this.verificarQuantidade = true;
-          console.log("Quantidade limite de espaços de café excedida");
         } else {
           if (this.allSalas.length < 2) {
             console.log(
@@ -58,9 +101,8 @@ export default {
             );
           } else {
             if (this.lotacaoCafe < this.mediaLotacao) {
-              console.log(
-                `A lotação da sala deve ser igual ou superior a ${this.mediaLotacao}`
-              );
+              this.verificaMediaLotacao = true;
+              console.log();
             } else {
               axios
                 .post("http://localhost:55560/api/cafes", {
@@ -69,14 +111,13 @@ export default {
                 })
                 .then((res) => {
                   console.log(res.data);
-                  location.reload();
                 });
+              this.verificaFinal = true;
             }
           }
         }
       } else {
         this.verificacaoCampos = true;
-        console.log(this.verificacaoCampos);
       }
     },
   },
@@ -113,33 +154,28 @@ export default {
 </script>
 
 <style>
-.cadastro-cafe {
+.container {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 30px;
 }
-.placeholders {
-  width: 500px;
-  height: 270px;
+.elementosCadastroCafe {
+  height: auto;
+  width: 600px;
+  text-align: center;
   margin: 40px auto;
-  border-radius: 50px;
-  text-align: center;
-  line-height: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-input {
-  outline: none;
-  border-radius: 10px;
-  border: 3px solid;
-  height: 25px;
-  width: 250px;
+.tituloCadastroCafe {
+  margin-bottom: 30px;
 }
-#cadastro {
-  margin-bottom: 50px;
+#buttonCadastrarCafe {
+  margin-bottom: 10px;
 }
-#buttonCadastrarParticipante {
-  margin-top: 20px;
-  padding: 5px;
-  border-radius: 10px;
-  border: 2px solid;
+h3::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background-color: #98f5ff;
 }
 </style>

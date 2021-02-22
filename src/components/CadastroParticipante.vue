@@ -1,31 +1,39 @@
 <template>
-  <div class="cadastro-participante">
+  <div class="container">
     <div>
       <a class="itens-header" href="/">Voltar</a>
     </div>
-    <div class="placeholders">
-      <h2 id="cadastro">Cadastro Participante</h2>
+    <div class="elementosCadastroParticipante">
+      <h3 class="tituloCadastroParticipante">Cadastro Participante</h3>
       <div>
         <h4>Nome do Participante</h4>
-        <input
-          type="text"
-          class="placeholder"
-          placeholder="Insira o nome do participante"
-          v-model="nomeParticipante"
-        />
+        <div class="input-group mb-4">
+          <input
+            type="text"
+            placeholder="Insira o nome do participante"
+            v-model="nomeParticipante"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
       </div>
       <div>
         <h4>Sobrenome do Participante</h4>
-        <input
-          type="text"
-          class="placeholder"
-          placeholder="Insira o nome do participante"
-          v-model="sobrenomeParticipante"
-        />
+        <div class="input-group mb-4">
+          <input
+            type="text"
+            placeholder="Insira o sobrenome do participante"
+            v-model="sobrenomeParticipante"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
       </div>
       <div>
         <h4>Selecione uma Sala para o participante</h4>
-        <select v-model="salaSel">
+        <select class="form-control mb-4" v-model="salaSel">
           <option value="0" selected disabled>Selecione uma Sala</option>
           <option
             v-for="salas in allSalas"
@@ -38,7 +46,7 @@
       </div>
       <div>
         <h4>Selecione um Espaço de Café para o Participante</h4>
-        <select v-model="cafeSel">
+        <select class="form-control" v-model="cafeSel">
           <option value="0" selected disabled>
             Selecione um Espaço de Café
           </option>
@@ -51,9 +59,29 @@
           </option>
         </select>
       </div>
-      <button id="buttonCadastrarParticipante" @click="cadastrarParticipante">
+      <button
+        id="buttonCadastrarParticipante"
+        class="btn btn-primary"
+        @click="cadastrarParticipante"
+      >
         Cadastrar Participante
       </button>
+      <div class="alert alert-success" role="alert" v-if="this.verificaFinal">
+        Participante cadastrado com Sucesso!
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificaFinalError"
+      >
+        <h4 class="alert-heading">Erro ao Cadastrar</h4>
+        <p>Não foi possível cadastrar o participante pois</p>
+        <p>a lotação das salas ou dos espaços de café foram excedidas</p>
+      </div>
+      <div class="alert alert-danger" role="alert" v-if="this.verificaCampos">
+        <h4 class="alert-heading">Erro ao Cadastrar</h4>
+        <p>Por favor preencha todos os campos acima</p>
+      </div>
     </div>
   </div>
 </template>
@@ -84,6 +112,8 @@ export default {
       lotacaoSala2Alterar: 0,
       lotacaoCafeAlterar: [],
       lotacaoSalaAlterar: [],
+      verificaFinal: false,
+      verificaFinalError: false,
     };
   },
   methods: {
@@ -666,9 +696,7 @@ export default {
               }
             }
           } else {
-            console.log(
-              "Não foi possível cadastrar o participante pois a lotação das salas ou dos espaços de café foram excedidas"
-            );
+            this.verificaFinalError = true;
             this.recarregarPagina();
           }
         }
@@ -705,33 +733,28 @@ export default {
 </script>
   
 <style>
-.cadastro-participante {
+.container {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 30px;
 }
-.placeholders {
-  width: 500px;
-  height: 270px;
+.elementosCadastroParticipante {
+  height: auto;
+  width: 600px;
+  text-align: center;
   margin: 40px auto;
-  border-radius: 50px;
-  text-align: center;
-  line-height: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-input {
-  outline: none;
-  border-radius: 10px;
-  border: 3px solid;
-  height: 25px;
-  width: 250px;
-}
-#cadastro {
-  margin-bottom: 50px;
+.tituloCadastroParticipante {
+  margin-bottom: 30px;
 }
 #buttonCadastrarParticipante {
-  margin-top: 20px;
-  padding: 5px;
-  border-radius: 10px;
-  border: 2px solid;
+  margin-bottom: 10px;
+}
+h3:after {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background-color: #98f5ff;
 }
 </style>

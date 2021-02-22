@@ -6,12 +6,17 @@
     <div class="pesquisaGeral">
       <div class="pesquisa1">
         <h2 id="pesquisa">Pesquisar Participante</h2>
-        <input
-          type="text"
-          placeholder="Digite o nome do participante"
-          v-model="pesquisaParticipante"
-        />
-        <table>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            placeholder="Digite o nome do participante"
+            v-model="pesquisaParticipante"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
+        <table class="content-table">
           <thead>
             <tr>
               <th>Nome do Participante</th>
@@ -39,7 +44,11 @@
       </div>
       <div class="pesquisa2">
         <h2 id="pesquisa">Pesquisar Sala de Evento</h2>
-        <select @change="carregarVetorSalas" v-model="salaSel">
+        <select
+          @change="carregarVetorSalas"
+          v-model="salaSel"
+          class="form-control mb-1"
+        >
           <option value="0" selected disabled>
             Selecione uma Sala de Evento
           </option>
@@ -51,7 +60,7 @@
             {{ salas.nome }}
           </option>
         </select>
-        <select v-model="etapaSel">
+        <select v-model="etapaSel" class="form-control mb-1">
           <option value="0" selected disabled>
             Selecione a Etapa desejada
           </option>
@@ -63,7 +72,7 @@
             {{ etapas.nome }}
           </option>
         </select>
-        <table v-if="this.etapaSel == 1">
+        <table v-if="this.etapaSel == 1" class="content-table">
           <thead>
             <tr>
               <th>Nome do Participante</th>
@@ -92,7 +101,7 @@
             </tr>
           </tbody>
         </table>
-        <table v-if="this.etapaSel == 2">
+        <table v-if="this.etapaSel == 2" class="content-table">
           <thead>
             <tr>
               <th>Nome do Participante</th>
@@ -124,7 +133,11 @@
       </div>
       <div class="pesquisa3">
         <h2 id="pesquisa">Pesquisar Espaço Café</h2>
-        <select @change="carregarVetorCafes" v-model="cafeSel">
+        <select
+          @change="carregarVetorCafes"
+          v-model="cafeSel"
+          class="form-control mb-1"
+        >
           <option value="0" selected disabled>
             Selecione um Espaço de Café
           </option>
@@ -136,7 +149,7 @@
             {{ cafes.nome }}
           </option>
         </select>
-        <select v-model="etapaSel2">
+        <select v-model="etapaSel2" class="form-control mb-1">
           <option value="0" selected disabled>
             Selecione a Etapa desejada
           </option>
@@ -148,7 +161,7 @@
             {{ etapas.nome }}
           </option>
         </select>
-        <table v-if="this.etapaSel2 == 1">
+        <table v-if="this.etapaSel2 == 1" class="content-table">
           <thead>
             <tr>
               <th>Nome do Participante</th>
@@ -177,7 +190,7 @@
             </tr>
           </tbody>
         </table>
-        <table v-if="this.etapaSel2 == 2">
+        <table v-if="this.etapaSel2 == 2" class="content-table">
           <thead>
             <tr>
               <th>Nome do Participante</th>
@@ -333,26 +346,67 @@ export default {
 .pesquisa1 {
   display: relative;
   margin-left: 0px;
-  border: solid black 1px;
   width: 600px;
   height: 700px;
   overflow: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
+  align-items: center;
 }
 .pesquisa2 {
   margin-left: 50px;
-  border: solid black 1px;
   width: 600px;
   height: 700px;
+  overflow: scroll;
+  overflow-x: auto;
 }
 .pesquisa3 {
   margin-left: 50px;
-  border: solid black 1px;
   width: 600px;
   height: 700px;
+  overflow: scroll;
+  overflow-x: auto;
 }
 .link {
+  padding: 20px;
+  text-decoration: none;
   text-align: center;
-  margin-top: 30px;
+}
+.content-table {
+  border-collapse: collapse;
+  margin: 10px auto;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #98f5ff;
+  color: #000;
+  text-align: center;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #98f5ff;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #98f5ff;
 }
 </style>

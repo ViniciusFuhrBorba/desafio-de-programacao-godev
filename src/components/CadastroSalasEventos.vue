@@ -1,31 +1,61 @@
 <template>
-  <div class="cadastro-salas-eventos">
+  <div class="container">
     <div>
       <a class="itens-header" href="/">Voltar</a>
     </div>
-    <div class="placeholders">
-      <h2 id="cadastro">Cadastro Sala de Evento</h2>
+    <div class="elementosCadastroSala">
+      <h3 class="tituloCadastroSala">Cadastro Sala de Evento</h3>
       <div>
         <h4>Nome da Sala de Evento</h4>
-        <input
-          type="text"
-          class="placeholder"
-          placeholder="Insira o nome da sala de evento"
-          v-model="nomeSala"
-        />
+        <div class="input-group mb-4">
+          <input
+            type="text"
+            placeholder="Insira o nome da sala de evento"
+            v-model="nomeSala"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
       </div>
       <div>
         <h4>Lotação da Sala</h4>
-        <input
-          type="text"
-          class="placeholder"
-          placeholder="Insira a lotação da sala"
-          v-model="lotacaoSala"
-        />
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            placeholder="Insira a lotação da sala"
+            v-model="lotacaoSala"
+            class="form-control"
+            aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </div>
       </div>
-      <button id="buttonCadastrarParticipante" @click="cadastrarSala">
+      <button
+        id="buttonCadastrarSala"
+        class="btn btn-primary"
+        @click="cadastrarSala"
+      >
         Cadastrar Sala de Evento
       </button>
+      <div class="alert alert-success" role="alert" v-if="this.verificaFinal">
+        Sala de Evento cadastrada com Sucesso!
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificacaoCampos"
+      >
+        Por favor preencha todos os campos acima
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificarQuantidade"
+      >
+        <h4 class="alert-heading">Erro ao Cadastrar</h4>
+        <p>Quantidade limite de salas excedida</p>
+      </div>
     </div>
   </div>
 </template>
@@ -40,18 +70,18 @@ export default {
       verificacaoCampos: false,
       allSalas: [],
       verificarQuantidade: false,
+      verificaFinal: false,
     };
   },
   methods: {
     cadastrarSala: function () {
-      //verifica os campos
-      if (this.nomeSala != "" && this.lotacaoSala != "") {
-        //limitacao
+      if (this.nomeSala == "" && this.lotacaoSala == "") {
+        this.verificacaoCampos = true;
+      } else {
         if (this.allSalas.length >= 2) {
           this.verificarQuantidade = true;
           console.log("Quantidade limite de salas excedida");
         } else {
-          //acrescenta
           axios
             .post("http://localhost:55560/api/salas", {
               nome: this.nomeSala,
@@ -61,51 +91,42 @@ export default {
               console.log(res.data);
               location.reload();
             });
-          
+          this.verificaFinal = true;
         }
-      } else {
-        this.verificacaoCampos = true;
-        console.log(this.verificacaoCampos);
       }
     },
   },
   mounted() {
     axios.get("http://localhost:55560/api/salas").then((resp) => {
-      (this.allSalas = resp.data), console.log(this.allSalas);
+      this.allSalas = resp.data;
     });
   },
 };
 </script>
 
 <style>
-.cadastro-salas-eventos {
+.container {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 30px;
 }
-.placeholders {
-  width: 500px;
-  height: 270px;
+.elementosCadastroSala {
+  height: auto;
+  width: 600px;
+  text-align: center;
   margin: 40px auto;
-  border-radius: 50px;
-  text-align: center;
-  line-height: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-input {
-  outline: none;
-  border-radius: 10px;
-  border: 3px solid;
-  height: 25px;
-  width: 250px;
-  text-align: center;
+.tituloCadastroSala {
+  margin-bottom: 30px;
 }
-#cadastro {
-  margin-bottom: 50px;
+#buttonCadastrarSala {
+  margin-bottom: 10px;
 }
-#buttonCadastrarParticipante {
-  margin-top: 20px;
-  padding: 5px;
-  border-radius: 10px;
-  border: 2px solid;
+h3:after {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  background-color: #98f5ff;
 }
 </style>
