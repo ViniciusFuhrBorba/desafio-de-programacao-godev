@@ -68,7 +68,7 @@ export default {
       console.log(this.allEtapas);
       if (this.verificacaoBtnEtapa1 == true) {
         for (var i = 0; i < this.allParticipantes.length; i++) {
-          if (this.allParticipantes[i].sala1 == 1) {
+          if (this.allParticipantes[i].salaEtapa1 == 1) {
             this.allParticipantesSala1.push(this.allParticipantes[i]);
           } else {
             this.allParticipantesSala2.push(this.allParticipantes[i]);
@@ -84,13 +84,13 @@ export default {
           this.allParticipantesSala2[i2] = this.aux[i2];
         }
         this.allParticipantesSala1.forEach((el) => {
-          if (el.sala2 == 2) {
-            el.sala2 = 1;
+          if (el.salaEtapa2 == 2) {
+            el.salaEtapa2 = 1;
           }
         });
         this.allParticipantesSala2.forEach((el) => {
-          if (el.sala2 == 1) {
-            el.sala2 = 2;
+          if (el.salaEtapa2 == 1) {
+            el.salaEtapa2 = 2;
           }
         });
         this.allParticipantes = [];
@@ -107,8 +107,8 @@ export default {
         });
         this.allParticipantes.forEach((el) => {
           axios.put("http://localhost:55560/api/participante/" + el.id, {
-            sala1: el.sala1,
-            sala2: el.sala2,
+            salaEtapa1: el.salaEtapa1,
+            salaEtapa2: el.salaEtapa2,
           });
         });
         this.allEtapas.forEach((el) => {
@@ -137,8 +137,8 @@ export default {
         });
         this.allParticipantes.forEach((el) => {
           axios.put("http://localhost:55560/api/participante/" + el.id, {
-            sala1: el.sala1,
-            sala2: el.sala2,
+            salaEtapa1: el.salaEtapa1,
+            salaEtapa2: el.salaEtapa2,
           });
         });
         this.allEtapas.forEach((el) => {

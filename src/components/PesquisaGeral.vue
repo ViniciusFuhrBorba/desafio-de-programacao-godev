@@ -275,20 +275,20 @@ export default {
       this.participantesSala2Etapa2 = [];
       if (this.salaSel == 1) {
         this.allParticipantes.filter((part) => {
-          if (part.sala1 == 1) {
+          if (part.salaEtapa1 == 1) {
             this.participantesSala1Etapa1.push(part);
           }
-          if (part.sala2 == 1) {
+          if (part.salaEtapa2 == 1) {
             this.participantesSala1Etapa2.push(part);
           }
         });
       }
       if (this.salaSel == 2) {
         this.allParticipantes.filter((part2) => {
-          if (part2.sala1 == 2) {
+          if (part2.salaEtapa1 == 2) {
             this.participantesSala2Etapa1.push(part2);
           }
-          if (part2.sala2 == 2) {
+          if (part2.salaEtapa2 == 2) {
             this.participantesSala2Etapa2.push(part2);
           }
         });
@@ -301,20 +301,20 @@ export default {
       this.participantesCafe2Etapa2 = [];
       if (this.cafeSel == 1) {
         this.allParticipantes.filter((part) => {
-          if (part.cafe1 == 1) {
+          if (part.cafeEtapa1 == 1) {
             this.participantesCafe1Etapa1.push(part);
           }
-          if (part.cafe2 == 1) {
+          if (part.cafeEtapa2 == 1) {
             this.participantesCafe1Etapa2.push(part);
           }
         });
       }
       if (this.cafeSel == 2) {
         this.allParticipantes.filter((part2) => {
-          if (part2.cafe1 == 2) {
+          if (part2.cafeEtapa1 == 2) {
             this.participantesCafe2Etapa1.push(part2);
           }
-          if (part2.cafe2 == 2) {
+          if (part2.cafeEtapa2 == 2) {
             this.participantesCafe2Etapa2.push(part2);
           }
         });

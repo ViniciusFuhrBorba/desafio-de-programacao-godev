@@ -102,8 +102,8 @@ export default {
       diferencaLotacaoSala2: 0,
       lotacaoSala1: 0,
       lotacaoSala2: 0,
-      sala2: 0,
-      cafe2: 0,
+      salaEtapa2: 0,
+      cafeEtapa2: 0,
       lotacaoCafe1: 0,
       lotacaoCafe2: 0,
       diferencaLotacaoConvertido1: 0,
@@ -153,16 +153,16 @@ export default {
             }
           }
           for (var i19 = 0; i19 < this.allParticipantes.length; i19++) {
-            if (this.allParticipantes[i19].sala1 == 1) {
+            if (this.allParticipantes[i19].salaEtapa1 == 1) {
               this.quantidadeSala1 += 1;
             }
-            if (this.allParticipantes[i19].sala1 == 2) {
+            if (this.allParticipantes[i19].salaEtapa1 == 2) {
               this.quantidadeSala2 += 1;
             }
-            if (this.allParticipantes[i19].sala2 == 1) {
+            if (this.allParticipantes[i19].salaEtapa2 == 1) {
               this.quantidadeSala1_2 += 1;
             }
-            if (this.allParticipantes[i19].sala2 == 1) {
+            if (this.allParticipantes[i19].salaEtapa2 == 1) {
               this.quantidadeSala2_2 += 1;
             }
           }
@@ -170,8 +170,6 @@ export default {
             this.quantidadeSala1 - this.quantidadeSala2;
           this.diferencaLotacaoSala2 =
             this.quantidadeSala2 - this.quantidadeSala1;
-          console.log(this.quantidadeSala1);
-          console.log(this.quantidadeSala2);
           if (this.diferencaLotacaoSala1 < 0) {
             this.diferencaLotacaoConvertido1 = 0;
           }
@@ -197,14 +195,14 @@ export default {
             //verifica a diferança de lotacao
             if (this.salaSel == 1) {
               for (var sala1 = 1; sala1 <= this.allSalas.length; sala1++) {
-                if (sala1.id != this.salaSel && this.sala2 == 0) {
-                  this.sala2 = this.allSalas[sala1].id;
+                if (sala1.id != this.salaSel && this.salaEtapa2 == 0) {
+                  this.salaEtapa2 = this.allSalas[sala1].id;
                 }
               }
               if (this.cafeSel == 1) {
                 for (var cafe = 1; cafe <= this.allCafes.length; cafe++) {
-                  if (cafe.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe].id;
+                  if (cafe.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -215,7 +213,7 @@ export default {
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                 ];
@@ -230,7 +228,7 @@ export default {
                     lotacao: this.lotacaoSala1Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                 ];
@@ -241,10 +239,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -269,8 +267,8 @@ export default {
               }
               if (this.cafeSel == 2) {
                 for (var cafe2 = 0; cafe2 <= this.allCafes.length; cafe2++) {
-                  if (cafe2.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe2].id;
+                  if (cafe2.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe2].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -281,7 +279,7 @@ export default {
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                 ];
@@ -296,7 +294,7 @@ export default {
                     lotacao: this.lotacaoSala1Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                 ];
@@ -307,10 +305,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -336,14 +334,14 @@ export default {
             }
             if (this.salaSel == 2) {
               for (var sala2 = 0; sala2 <= this.allSalas.length; sala2++) {
-                if (sala2.id != this.salaSel && this.sala2 == 0) {
-                  this.sala2 = this.allSalas[sala2].id;
+                if (sala2.id != this.salaSel && this.salaEtapa2 == 0) {
+                  this.salaEtapa2 = this.allSalas[sala2].id;
                 }
               }
               if (this.cafeSel == 1) {
                 for (var cafe3 = 1; cafe3 <= this.allCafes.length; cafe3++) {
-                  if (cafe3.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe3].id;
+                  if (cafe3.id != this.cafeSel && this.Etapacafe2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe3].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -354,7 +352,7 @@ export default {
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                 ];
@@ -369,7 +367,7 @@ export default {
                     lotacao: this.lotacaoSala2Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                 ];
@@ -380,10 +378,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -408,8 +406,8 @@ export default {
               }
               if (this.cafeSel == 2) {
                 for (var cafe4 = 0; cafe4 <= this.allCafes.length; cafe4++) {
-                  if (cafe4.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe4].id;
+                  if (cafe4.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe4].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -420,7 +418,7 @@ export default {
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                 ];
@@ -435,7 +433,7 @@ export default {
                     lotacao: this.lotacaoSala2Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                 ];
@@ -446,10 +444,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -487,11 +485,11 @@ export default {
               this.diferencaLotacaoConvertido2
             ) {
               this.salaSel = 2;
-              this.sala2 = 1;
+              this.salaEtapa2 = 1;
               if (this.cafeSel == 1) {
                 for (var cafe5 = 1; cafe5 <= this.allCafes.length; cafe5++) {
-                  if (cafe5.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe5].id;
+                  if (cafe5.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe5].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -502,7 +500,7 @@ export default {
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                 ];
@@ -510,16 +508,14 @@ export default {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i11]);
                 }
                 this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
-                console.log(this.lotacaoSala1Alterar);
                 this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
-                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                 ];
@@ -530,10 +526,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -558,8 +554,8 @@ export default {
               }
               if (this.cafeSel == 2) {
                 for (var cafe6 = 0; cafe6 <= this.allCafes.length; cafe6++) {
-                  if (cafe6.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe6].id;
+                  if (cafe6.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe6].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -570,7 +566,7 @@ export default {
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                 ];
@@ -578,16 +574,14 @@ export default {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i17]);
                 }
                 this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
-                console.log(this.lotacaoSala1Alterar);
                 this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
-                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                 ];
@@ -599,10 +593,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -631,11 +625,11 @@ export default {
               this.diferencaLotacaoConvertido1
             ) {
               this.salaSel = 1;
-              this.sala2 = 2;
+              this.salaEtapa2 = 2;
               if (this.cafeSel == 1) {
                 for (var cafe7 = 1; cafe7 <= this.allCafes.length; cafe7++) {
-                  if (cafe7.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe7].id;
+                  if (cafe7.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe7].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -646,7 +640,7 @@ export default {
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                 ];
@@ -654,16 +648,14 @@ export default {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i13]);
                 }
                 this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
-                console.log(this.lotacaoSala1Alterar);
                 this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
-                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                 ];
@@ -676,10 +668,10 @@ export default {
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
@@ -704,8 +696,8 @@ export default {
               }
               if (this.cafeSel == 2) {
                 for (var cafe8 = 0; cafe8 <= this.allCafes.length; cafe8++) {
-                  if (cafe8.id != this.cafeSel && this.cafe2 == 0) {
-                    this.cafe2 = this.allCafes[cafe8].id;
+                  if (cafe8.id != this.cafeSel && this.cafeEtapa2 == 0) {
+                    this.cafeEtapa2 = this.allCafes[cafe8].id;
                   }
                 }
                 this.lotacaoCafe1Alterar = this.lotacaoCafe1 - 1;
@@ -716,7 +708,7 @@ export default {
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                   {
-                    id: this.cafe2,
+                    id: this.cafeEtapa2,
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                 ];
@@ -724,31 +716,28 @@ export default {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i15]);
                 }
                 this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
-                console.log(this.lotacaoSala1Alterar);
                 this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
-                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                   {
-                    id: this.sala2,
+                    id: this.salaEtapa2,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                 ];
                 for (var i16 = 0; i16 <= 1; i16++) {
                   this.lotacaoSalaAlterar.push(allSalasAlterar[i16]);
                 }
-                console.log(this.lotacaoSalaAlterar);
                 axios
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
-                    sala1: this.salaSel,
-                    sala2: this.sala2,
-                    cafe1: this.cafeSel,
-                    cafe2: this.cafe2,
+                    salaEtapa1: this.salaSel,
+                    salaEtapa2: this.salaEtapa2,
+                    cafeEtapa1: this.cafeSel,
+                    cafeEtapa2: this.cafeEtapa2,
                   })
                   .then((resp) => {
                     console.log(resp.data);
