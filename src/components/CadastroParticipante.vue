@@ -98,14 +98,16 @@ export default {
       allSalas: [],
       allCafes: [],
       verificaCampos: false,
-      diferencaLotacao: 0,
+      diferencaLotacaoSala1: 0,
+      diferencaLotacaoSala2: 0,
       lotacaoSala1: 0,
       lotacaoSala2: 0,
       sala2: 0,
       cafe2: 0,
       lotacaoCafe1: 0,
       lotacaoCafe2: 0,
-      diferencaLotacaoConvertido: 0,
+      diferencaLotacaoConvertido1: 0,
+      diferencaLotacaoConvertido2: 0,
       lotacaoCafe1Alterar: 0,
       lotacaoCafe2Alterar: 0,
       lotacaoSala1Alterar: 0,
@@ -114,6 +116,11 @@ export default {
       lotacaoSalaAlterar: [],
       verificaFinal: false,
       verificaFinalError: false,
+      quantidadeSala1: 0,
+      quantidadeSala2: 0,
+      quantidadeSala1_2: 0,
+      quantidadeSala2_2: 0,
+      allParticipantes: [],
     };
   },
   methods: {
@@ -145,16 +152,43 @@ export default {
               this.lotacaoCafe2 = this.allCafes[i2].lotacao;
             }
           }
-          this.diferencaLotacao = this.lotacaoSala1 - this.lotacaoSala2;
-          if (this.diferencaLotacao < 0) {
-            this.diferencaLotacaoConvertido = this.diferencaLotacao * -1;
+          for (var i19 = 0; i19 < this.allParticipantes.length; i19++) {
+            if (this.allParticipantes[i19].sala1 == 1) {
+              this.quantidadeSala1 += 1;
+            }
+            if (this.allParticipantes[i19].sala1 == 2) {
+              this.quantidadeSala2 += 1;
+            }
+            if (this.allParticipantes[i19].sala2 == 1) {
+              this.quantidadeSala1_2 += 1;
+            }
+            if (this.allParticipantes[i19].sala2 == 1) {
+              this.quantidadeSala2_2 += 1;
+            }
           }
-          if (this.diferencaLotacao >= 0) {
-            this.diferencaLotacaoConvertido = this.diferencaLotacao;
+          this.diferencaLotacaoSala1 =
+            this.quantidadeSala1 - this.quantidadeSala2;
+          this.diferencaLotacaoSala2 =
+            this.quantidadeSala2 - this.quantidadeSala1;
+          console.log(this.quantidadeSala1);
+          console.log(this.quantidadeSala2);
+          if (this.diferencaLotacaoSala1 < 0) {
+            this.diferencaLotacaoConvertido1 = 0;
           }
-
+          if (this.diferencaLotacaoSala1 >= 0) {
+            this.diferencaLotacaoConvertido1 = this.diferencaLotacaoSala1;
+          }
+          if (this.diferencaLotacaoSala2 < 0) {
+            this.diferencaLotacaoConvertido2 = 0;
+          }
+          if (this.diferencaLotacaoSala2 >= 0) {
+            this.diferencaLotacaoConvertido2 = this.diferencaLotacaoSala2;
+          }
+          console.log(this.diferencaLotacaoConvertido1);
+          console.log(this.diferencaLotacaoConvertido2);
           if (
-            this.diferencaLotacaoConvertido <= 1 &&
+            this.diferencaLotacaoConvertido1 < 1 &&
+            this.diferencaLotacaoConvertido2 < 1 &&
             this.lotacaoSala1 >= 1 &&
             this.lotacaoSala2 >= 1 &&
             this.lotacaoCafe1 >= 1 &&
@@ -440,13 +474,20 @@ export default {
               }
             }
           } else if (
-            this.diferencaLotacaoConvertido > 1 &&
+            this.diferencaLotacaoConvertido1 >= 0 &&
+            this.diferencaLotacaoConvertido2 >= 0 &&
             this.lotacaoCafe1 >= 1 &&
-            this.lotacaoCafe2 >= 1
+            this.lotacaoCafe2 >= 1 &&
+            this.lotacaoSala1 >= 1 &&
+            this.lotacaoSala2 >= 1
           ) {
             //se a diferença for maior que 1
-            if (this.lotacaoSala1 > this.lotacaoSala2) {
-              this.salaSel = 1;
+            if (
+              this.diferencaLotacaoConvertido1 >
+              this.diferencaLotacaoConvertido2
+            ) {
+              this.salaSel = 2;
+              this.sala2 = 1;
               if (this.cafeSel == 1) {
                 for (var cafe5 = 1; cafe5 <= this.allCafes.length; cafe5++) {
                   if (cafe5.id != this.cafeSel && this.cafe2 == 0) {
@@ -468,14 +509,21 @@ export default {
                 for (var i11 = 0; i11 < 2; i11++) {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i11]);
                 }
-                this.lotacaoSala1Alterar = this.lotacaoSala1 - 2;
+                this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
+                console.log(this.lotacaoSala1Alterar);
+                this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
+                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
+                    lotacao: this.lotacaoSala2Alterar,
+                  },
+                  {
+                    id: this.sala2,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                 ];
-                for (var i12 = 0; i12 < 1; i12++) {
+                for (var i12 = 0; i12 <= 1; i12++) {
                   this.lotacaoSalaAlterar.push(allSalasAlterar[i12]);
                 }
                 axios
@@ -483,7 +531,7 @@ export default {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
                     sala1: this.salaSel,
-                    sala2: this.salaSel,
+                    sala2: this.sala2,
                     cafe1: this.cafeSel,
                     cafe2: this.cafe2,
                   })
@@ -529,22 +577,30 @@ export default {
                 for (var i17 = 0; i17 < 2; i17++) {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i17]);
                 }
-                this.lotacaoSala1Alterar = this.lotacaoSala1 - 2;
+                this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
+                console.log(this.lotacaoSala1Alterar);
+                this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
+                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
+                    lotacao: this.lotacaoSala2Alterar,
+                  },
+                  {
+                    id: this.sala2,
                     lotacao: this.lotacaoSala1Alterar,
                   },
                 ];
-                for (var i18 = 0; i18 < 1; i18++) {
+                for (var i18 = 0; i18 <= 1; i18++) {
                   this.lotacaoSalaAlterar.push(allSalasAlterar[i18]);
                 }
+                console.log(this.lotacaoSalaAlterar);
                 axios
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
                     sala1: this.salaSel,
-                    sala2: this.salaSel,
+                    sala2: this.sala2,
                     cafe1: this.cafeSel,
                     cafe2: this.cafe2,
                   })
@@ -570,8 +626,12 @@ export default {
                 this.recarregarPagina();
               }
             }
-            if (this.lotacaoSala2 > this.lotacaoSala1) {
-              this.salaSel = 2;
+            if (
+              this.diferencaLotacaoConvertido2 >
+              this.diferencaLotacaoConvertido1
+            ) {
+              this.salaSel = 1;
+              this.sala2 = 2;
               if (this.cafeSel == 1) {
                 for (var cafe7 = 1; cafe7 <= this.allCafes.length; cafe7++) {
                   if (cafe7.id != this.cafeSel && this.cafe2 == 0) {
@@ -590,25 +650,34 @@ export default {
                     lotacao: this.lotacaoCafe2Alterar,
                   },
                 ];
-                for (var i13 = 0; i13 < 2; i13++) {
+                for (var i13 = 0; i13 <= 1; i13++) {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i13]);
                 }
-                this.lotacaoSala2Alterar = this.lotacaoSala2 - 2;
+                this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
+                console.log(this.lotacaoSala1Alterar);
+                this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
+                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
+                    lotacao: this.lotacaoSala1Alterar,
+                  },
+                  {
+                    id: this.sala2,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                 ];
-                for (var i14 = 0; i14 < 1; i14++) {
+
+                for (var i14 = 0; i14 <= 1; i14++) {
                   this.lotacaoSalaAlterar.push(allSalasAlterar[i14]);
                 }
+                console.log(this.lotacaoSalaAlterar);
                 axios
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
                     sala1: this.salaSel,
-                    sala2: this.salaSel,
+                    sala2: this.sala2,
                     cafe1: this.cafeSel,
                     cafe2: this.cafe2,
                   })
@@ -651,25 +720,33 @@ export default {
                     lotacao: this.lotacaoCafe1Alterar,
                   },
                 ];
-                for (var i15 = 0; i15 < 2; i15++) {
+                for (var i15 = 0; i15 <= 1; i15++) {
                   this.lotacaoCafeAlterar.push(allCafesAlterar[i15]);
                 }
-                this.lotacaoSala2Alterar = this.lotacaoSala2 - 2;
+                this.lotacaoSala1Alterar = this.lotacaoSala1 - 1;
+                console.log(this.lotacaoSala1Alterar);
+                this.lotacaoSala2Alterar = this.lotacaoSala2 - 1;
+                console.log(this.lotacaoSala2Alterar);
                 let allSalasAlterar = [
                   {
                     id: this.salaSel,
+                    lotacao: this.lotacaoSala1Alterar,
+                  },
+                  {
+                    id: this.sala2,
                     lotacao: this.lotacaoSala2Alterar,
                   },
                 ];
-                for (var i16 = 0; i16 < 1; i16++) {
+                for (var i16 = 0; i16 <= 1; i16++) {
                   this.lotacaoSalaAlterar.push(allSalasAlterar[i16]);
                 }
+                console.log(this.lotacaoSalaAlterar);
                 axios
                   .post("http://localhost:55560/api/participante", {
                     nome: this.nomeParticipante,
                     sobrenome: this.sobrenomeParticipante,
                     sala1: this.salaSel,
-                    sala2: this.salaSel,
+                    sala2: this.sala2,
                     cafe1: this.cafeSel,
                     cafe2: this.cafe2,
                   })
@@ -720,6 +797,9 @@ export default {
     axios
       .get("http://localhost:55560/api/cafes")
       .then((resp) => (this.allCafes = resp.data));
+    axios
+      .get("http://localhost:55560/api/participante")
+      .then((resp) => (this.allParticipantes = resp.data));
   },
   computed: {
     carregarComboSalas: function () {
