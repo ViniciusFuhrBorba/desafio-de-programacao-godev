@@ -5,7 +5,9 @@
 ### Aplicações Necessárias
 Para poder "baixar" o projeto é necessário ter o Git instalado no computador, caso não tenha acesse: https://git-scm.com/ e faça o download.
 Além disso, para ser possível rodar o projeto é necessário ter o Visual Studio, com a carga de trabalho ASP.NET e desenvolvimento Web instalada, o Visual Studio Code, o Node.js, o SQL Server 2019 Express e o SQL Management Studio instalado em sua máquina.
+<br>
 Caso não tenha nenhum dessas aplicações, será necessário instalá-las:
+<br>
 Visual Studio: https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&rel=16
 Visual Studio Code: https://code.visualstudio.com/docs/?dv=win
 Node.js: https://nodejs.org/en/
