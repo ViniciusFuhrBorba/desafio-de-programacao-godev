@@ -9,10 +9,15 @@ Além disso, para ser possível rodar o projeto é necessário ter o Visual Stud
 Caso não tenha nenhum dessas aplicações, será necessário instalá-las:
 <br>
 Visual Studio: https://visualstudio.microsoft.com/pt-br/thank-you-downloading-visual-studio/?sku=Community&rel=16
+<br>
 Visual Studio Code: https://code.visualstudio.com/docs/?dv=win
+<br>
 Node.js: https://nodejs.org/en/
+<br>
 SQL Server 2019 Express: https://www.microsoft.com/pt-br/sql-server/sql-server-downloads
+<br>
 SQL Server Management Studio: https://docs.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15
+<br>
 Obs: Primeiro faça a instalação do SQL Server 2019 Express antes de realizar a instalação do SQL Server Management Studio.
  
  
@@ -34,7 +39,7 @@ Abra o terminal do Visual Studio Code, indo até Terminal na parte superior da t
 " ctrl + ' ". Após isso, digite "cd + tab" e verifique se você está na pasta raiz do projeto, tendo que aparecer .\.git\ ou .\public\, caso apareça, apague o que está escrito e digite o comando "npm install", que será responsável por baixar todas as dependências necessárias para rodar o projeto front-end.
  
 ### Baixando pacotes NuGet do projeto back-end
-Com o projeto back-end aberto no Visual Studio, vá até o Gerenciador de Soluções, podendo acessá-lo em Exibir no canto superior da tela ou em diretamente em Gerenciador de Soluções no canto direito da tela. Após acessar o Gerenciador de Soluções, com o botão direito do mouse clique em desafioProg e vá até em Gerenciar Pacotes do NuGet.
+Com o projeto back-end aberto no Visual Studio, vá até o Gerenciador de Soluções, podendo acessá-lo em Exibir no canto superior da tela ou diretamente em Gerenciador de Soluções no canto direito da tela. Após acessar o Gerenciador de Soluções, com o botão direito do mouse clique em desafioProg e vá até em Gerenciar Pacotes do NuGet.
 Ao clicar com o botão esquerdo em Gerenciar Pacotes do NuGet, abrirá um tela no Visual Studio, nesta tela você irá selecionar Procurar
 Ao clicar em Procurar, no campo de pesquisa digite:
 EntityFramework, clique em instalar. Depois de finalizar a instalação do EntityFramework, vá novamente a aba de pesquisa e pesquise por Microsoft.AspNet.Cors, clique em instalar, e depois de finalizar a instalação do Microsoft.AspNet.Cors realize o mesmo procedimento mas dessa vez pesquisando por Microsoft.AspNet.WebApi.Cors.
@@ -51,7 +56,7 @@ Essa pasta contém um arquivo chamado Model1.edmx. Clique com o botão direito s
  
 ### Rodando o projeto front-end
 Abra o terminal do Visual Studio Code, indo até Terminal na parte superior da tela, ou apertando as teclas
-" ctrl+' ". Após isso, digite " cd+tab " e verifique se você está na pasta raiz do projeto, tendo que aparecer .\.git\ ou .\public\, caso apareça, apague o que está escrito e digite o comando "npm run serve", que será responsável por compilar o projeto front-end. Após os processos de carregamento, aparecerá que o projeto foi compilado com sucesso, com isso vá até o seu navegador de preferência e digite "http://localhost:8080/" ou no terminal do Visual Studio Code pressione a tecla CTRL e com o botão esquerdo do mouse clique em "http://localhost:8080/" (obs: a porta pode a vir mudar dependendo se alguma aplicação já está rodando na mesma porta em sua máquina) para conseguir ter acesso ao projeto em seu navegador.
+" ctrl + ' ". Após isso, digite " cd + tab " e verifique se você está na pasta raiz do projeto, tendo que aparecer .\.git\ ou .\public\, caso apareça, apague o que está escrito e digite o comando "npm run serve", que será responsável por compilar o projeto front-end. Após os processos de carregamento, aparecerá que o projeto foi compilado com sucesso, com isso vá até o seu navegador de preferência e digite "http://localhost:8080/" ou no terminal do Visual Studio Code pressione a tecla CTRL e com o botão esquerdo do mouse clique em "http://localhost:8080/" (obs: a porta pode a vir mudar dependendo se alguma aplicação já está rodando na mesma porta em sua máquina) para conseguir ter acesso ao projeto em seu navegador.
  
 ### Rodando o projeto back-end
 Abra o Visual Studio e clique em IIS Express(seta verde) na parte superior da tela e espere com que uma página Web seja carregada apresentando como título ASP.NET.
@@ -63,26 +68,40 @@ Na parte superior da tela temos Cadastrar Participante, Cadastrar Salas de Event
  
 ### Cadastro Salas de Evento
 Primeiramente, para que seja possível realizar o cadastro de um participante, é necessário clicar em Cadastrar Salas de Evento. Ao clicar, você será redirecionado para a tela Cadastro Sala Evento, onde para realizar o cadastro de uma sala, será necessário preencher todos os campos, neste caso Nome da Sala de Evento e Lotação da Sala, e posteriormente clicar no botão Cadastrar Sala de Evento.
+<br>
 Observação:
-Caso o cadastro da sala seja um sucesso, aparecerá uma mensagem informando, "Sala de Evento cadastrada com Sucesso!".
+<br>
+Caso o cadastro da sala seja um sucesso, aparecerá uma mensagem informando: "Sala de Evento cadastrada com Sucesso!".
+<br>
 Caso algum dos campos não tenham sido preenchidos, aparecerá uma mensagem informando: "Por favor preencha todos os campos acima"
+<br>
 Caso o número máximo de salas, neste caso duas, foi excedido, aparecerá uma mensagem informando: "A quantidade limite de salas foi excedida".
  
 ### Cadastro Espaços de Café
 Depois de cadastrar as duas salas necessárias, clique em voltar e você será redirecionado para a tela inicial. Na tela inicial clique em Cadastrar Espaço de Café. Ao clicar, você será redirecionado para a tela Cadastro Espaço Café, onde para realizar o cadastro de um espaço de café, será necessário preencher todos os campos, neste caso Nome do Café, Lotação do Café, e posteriormente clicar no botão Cadastrar Espaço Café.
+<br>
 Observação:
 Caso o cadastro do espaço de café tenha sido um sucesso, aparecerá uma mensagem informando: Espaço Café cadastrado com Sucesso!.
+<br>
 Caso algum dos campos não tenham sido preenchidos, aparecerá uma mensagem informando: "Por favor preencha todos os campos acima".
+<br>
 Caso nenhuma sala tenha sido cadastrada, aparecerá uma mensagem informando: "É preciso realizar primeiramente o cadastro de duas salas antes de realizar o cadastro dos espaços de café".
+<br>
 Caso as duas salas tenham sido cadastradas, mas a lotação colocada no campo Lotação Espaço Café seja inferior à média da lotação das salas, aparecerá uma mensagem informando: "A lotação do espaço de café precisa ser igual ou superior a: média de lotação das salas".
+<br>
 Caso, já foram cadastrados dois espaços de café, que neste caso é o número máximo de espaços, aparecerá uma mensagem informando: "Quantidade limite de espaços de café foi excedida".
  
 ### Cadastro Participante
 Depois de cadastrar as duas salas e os dois espaços de café, clique em Cadastrar Participante, onde você será redirecionado para a tela Cadastro Participante. Nessa tela será possível realizar o cadastro de um participante, contendo nele seu Nome, Sobrenome, Sala, e Espaço de Café.
+<br>
 Depois de preencher todos os campos, clique em cadastrar:
+<br>
 Caso o cadastro for realizado com sucesso, aparecerá uma mensagem informando o sucesso do cadastro.
+<br>
 Caso o cadastro for realizado com sucesso, mas a diferença de participantes entre as salas cadastradas for maior que 1, aparecerá uma mensagem informando que "Participante cadastrado com sucesso, e realocado para outra sala devido a motivos de segurança".
+<br>
 Caso a lotação dos espaços de café ou das salas tenham chegado ao limite máximo, aparecerá uma mensagem informando que "Não foi possível cadastrar o participante pois a lotação das salas ou dos espaços de café foram excedidas".
+<br>
 Caso a etapa 1 tenha sido finalizada na tela de etapas, aparecerá uma mensagem informando: "O cadastro de participantes foi desabilitado, pois a Etapa 1 foi finalizada."
  
  
