@@ -72,7 +72,7 @@
       >
         <h4 class="alert-heading">Erro ao Cadastrar</h4>
         <p>
-          É preciso realizar primeiramento o cadastro de salas antes de realizar
+          É preciso realizar primeiramente o cadastro de duas salas antes de realizar
           o cadastro dos espaços de café
         </p>
       </div>
