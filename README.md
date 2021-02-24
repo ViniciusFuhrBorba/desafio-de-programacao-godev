@@ -81,6 +81,7 @@ Caso o número máximo de salas, neste caso duas, foi excedido, aparecerá uma m
 Depois de cadastrar as duas salas necessárias, clique em voltar e você será redirecionado para a tela inicial. Na tela inicial clique em Cadastrar Espaço de Café. Ao clicar, você será redirecionado para a tela Cadastro Espaço Café, onde para realizar o cadastro de um espaço de café, será necessário preencher todos os campos, neste caso Nome do Café, Lotação do Café, e posteriormente clicar no botão Cadastrar Espaço Café.
 <br>
 Observação:
+<br>
 Caso o cadastro do espaço de café tenha sido um sucesso, aparecerá uma mensagem informando: Espaço Café cadastrado com Sucesso!.
 <br>
 Caso algum dos campos não tenham sido preenchidos, aparecerá uma mensagem informando: "Por favor preencha todos os campos acima".
