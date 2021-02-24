@@ -166,7 +166,7 @@
             <tr>
               <th>Nome do Participante</th>
               <th>Sobrenome do Participante</th>
-              <th>Sala Etapa 1</th>
+              <th>Espaço Café Etapa 1</th>
             </tr>
           </thead>
           <tbody v-if="this.cafeSel == 1">
@@ -195,7 +195,7 @@
             <tr>
               <th>Nome do Participante</th>
               <th>Sobrenome do Participante</th>
-              <th>Sala Etapa 2</th>
+              <th>Espaço Café Etapa 2</th>
             </tr>
           </thead>
           <tbody v-if="this.cafeSel == 1">

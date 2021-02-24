@@ -4,7 +4,7 @@
       <a class="itens-header" href="/">Voltar</a>
     </div>
     <div class="etapas">
-      <div class="etapa">
+      <div class="etapa1">
         <h3>Etapa 1</h3>
         <h4>Status:</h4>
         <div v-if="this.andamentoEtapa1">
@@ -15,13 +15,13 @@
         </div>
         <button
           @click="finalizarEtapa1"
-          class="button"
+          class="btn btn-primary"
           v-if="verificacaoBtnEtapa1"
         >
           Finalizar Etapa 1
         </button>
       </div>
-      <div class="etapa">
+      <div class="etapa2">
         <h3>Etapa 2</h3>
         <h4>Status:</h4>
         <div v-if="!this.andamentoEtapa2 && this.andamentoEtapa1">
@@ -35,8 +35,8 @@
         </div>
         <button
           @click="finalizarEtapa2"
-          class="button"
           v-if="verificacaoBtnEtapa2"
+          class="btn btn-primary"
         >
           Finalizar Etapa 2
         </button>
@@ -184,17 +184,21 @@ export default {
 .etapas {
   display: flex;
   justify-content: center;
-  align-items: center;
   text-align: center;
   height: 100%;
   width: 100%;
   margin-top: 30px;
 }
 
-.etapa {
+.etapa1 {
   display: relative;
-  margin-left: 0px;
-  border: solid black 1px;
+  width: 300px;
+  height: 200px;
+  border-radius: 50px;
+}
+.etapa2 {
+  display: relative;
+  margin-left: 20px;
   width: 300px;
   height: 200px;
   border-radius: 50px;

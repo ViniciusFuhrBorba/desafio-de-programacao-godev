@@ -54,7 +54,7 @@
         v-if="this.verificarQuantidade"
       >
         <h4 class="alert-heading">Erro ao Cadastrar</h4>
-        <p>Quantidade limite de espaços café excedida</p>
+        <p>Quantidade limite de espaços de café foi excedida</p>
       </div>
       <div
         class="alert alert-danger"
@@ -62,7 +62,19 @@
         v-if="this.verificaMediaLotacao"
       >
         <h4 class="alert-heading">Erro ao Cadastrar</h4>
-        <p>Quantidade limite de cafés excedida</p>
+        <p>A lotação do espaço de café precisa ser igual ou superior a:</p>
+        <p>{{ this.mediaLotacao }}</p>
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-if="this.verificaQuantidadeSalas"
+      >
+        <h4 class="alert-heading">Erro ao Cadastrar</h4>
+        <p>
+          É preciso realizar primeiramento o cadastro de salas antes de realizar
+          o cadastro dos espaços de café
+        </p>
       </div>
     </div>
   </div>
@@ -78,6 +90,7 @@ export default {
       verificacaoCampos: false,
       verificarQuantidade: false,
       verificaMediaLotacao: false,
+      verificaQuantidadeSalas: false,
       verificaFinal: false,
       allCafes: [],
       allSalas: [],
@@ -91,18 +104,17 @@ export default {
       this.verificaMediaLotacao = false;
       this.verificaFinal = false;
       this.verificacaoCampos = false;
+      this.verficaQuantidadeSalas = false;
       if (this.nomeCafe != "" && this.lotacaoCafe != "") {
         if (this.allCafes.length >= 2) {
           this.verificarQuantidade = true;
+          this.recarregarPagina();
         } else {
           if (this.allSalas.length < 2) {
-            console.log(
-              "É preciso realizar primeiramento o cadastro de salas antes de realizar o cadastro dos espaços de café"
-            );
+            this.verficaQuantidadeSalas = true;
           } else {
             if (this.lotacaoCafe < this.mediaLotacao) {
               this.verificaMediaLotacao = true;
-              console.log();
             } else {
               axios
                 .post("http://localhost:55560/api/cafes", {
@@ -113,12 +125,18 @@ export default {
                   console.log(res.data);
                 });
               this.verificaFinal = true;
+              this.recarregarPagina();
             }
           }
         }
       } else {
         this.verificacaoCampos = true;
       }
+    },
+    recarregarPagina: function () {
+      setTimeout(function () {
+        location.reload();
+      }, 4000);
     },
   },
   mounted() {

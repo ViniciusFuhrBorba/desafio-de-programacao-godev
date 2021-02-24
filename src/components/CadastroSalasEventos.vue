@@ -75,12 +75,15 @@ export default {
   },
   methods: {
     cadastrarSala: function () {
+      this.verificacaoCampos = false;
+      this.verificarQuantidade = false;
+      this.verificaFinal = false;
       if (this.nomeSala == "" && this.lotacaoSala == "") {
         this.verificacaoCampos = true;
       } else {
         if (this.allSalas.length >= 2) {
           this.verificarQuantidade = true;
-          console.log("Quantidade limite de salas excedida");
+          this.recarregarPagina();
         } else {
           axios
             .post("http://localhost:55560/api/salas", {
@@ -94,6 +97,11 @@ export default {
           this.verificaFinal = true;
         }
       }
+    },
+    recarregarPagina: function () {
+      setTimeout(function () {
+        location.reload();
+      }, 4000);
     },
   },
   mounted() {

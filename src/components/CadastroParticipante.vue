@@ -46,7 +46,7 @@
       </div>
       <div>
         <h4>Selecione um Espaço de Café para o Participante</h4>
-        <select class="form-control" v-model="cafeSel">
+        <select class="form-control mb-4" v-model="cafeSel">
           <option value="0" selected disabled>
             Selecione um Espaço de Café
           </option>
@@ -63,11 +63,26 @@
         id="buttonCadastrarParticipante"
         class="btn btn-primary"
         @click="cadastrarParticipante"
+        v-if="this.carregarBtn == true"
       >
         Cadastrar Participante
       </button>
+
+      <div class="alert alert-warning" role="alert" v-if="!this.carregarBtn">
+        <h4 class="alert alert-heading">Atenção</h4>
+        <p>
+          O cadastro de participantes foi desabilitado, pois a Etapa 1 foi
+          finalizada.
+        </p>
+      </div>
       <div class="alert alert-success" role="alert" v-if="this.verificaFinal">
-        Participante cadastrado com Sucesso!
+        <h4 class="alert alert-heading">Cadastro Realizado</h4>
+        <p>Participante cadastrado com Sucesso!</p>
+      </div>
+      <div class="alert alert-warning" role="alert" v-if="this.verificaFinal2">
+        <h4 class="alert alert-heading">Cadastro Realizado</h4>
+        <p>Participante cadastrado com sucesso, e realocado para outra sala</p>
+        <p>devido a motivos de segurança</p>
       </div>
       <div
         class="alert alert-danger"
@@ -92,35 +107,38 @@ export default {
   data() {
     return {
       salaSel: 0,
+      cafeSel: 0,
       nomeParticipante: "",
       sobrenomeParticipante: "",
-      cafeSel: 0,
       allSalas: [],
       allCafes: [],
-      verificaCampos: false,
+      allParticipantes: [],
+      allEtapas: [],
       diferencaLotacaoSala1: 0,
       diferencaLotacaoSala2: 0,
       lotacaoSala1: 0,
       lotacaoSala2: 0,
-      salaEtapa2: 0,
-      cafeEtapa2: 0,
-      lotacaoCafe1: 0,
       lotacaoCafe2: 0,
-      diferencaLotacaoConvertido1: 0,
-      diferencaLotacaoConvertido2: 0,
+      lotacaoCafe1: 0,
       lotacaoCafe1Alterar: 0,
       lotacaoCafe2Alterar: 0,
       lotacaoSala1Alterar: 0,
       lotacaoSala2Alterar: 0,
       lotacaoCafeAlterar: [],
       lotacaoSalaAlterar: [],
+      diferencaLotacaoConvertido1: 0,
+      diferencaLotacaoConvertido2: 0,
+      salaEtapa2: 0,
+      cafeEtapa2: 0,
+      verificaCampos: false,
       verificaFinal: false,
+      verificaFinal2: false,
       verificaFinalError: false,
       quantidadeSala1: 0,
       quantidadeSala2: 0,
       quantidadeSala1_2: 0,
       quantidadeSala2_2: 0,
-      allParticipantes: [],
+      mostrarBtn: true,
     };
   },
   methods: {
@@ -182,8 +200,6 @@ export default {
           if (this.diferencaLotacaoSala2 >= 0) {
             this.diferencaLotacaoConvertido2 = this.diferencaLotacaoSala2;
           }
-          console.log(this.diferencaLotacaoConvertido1);
-          console.log(this.diferencaLotacaoConvertido2);
           if (
             this.diferencaLotacaoConvertido1 < 1 &&
             this.diferencaLotacaoConvertido2 < 1 &&
@@ -263,6 +279,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal = true;
                 this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
@@ -329,6 +346,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal = true;
                 this.recarregarPagina();
               }
             }
@@ -340,7 +358,7 @@ export default {
               }
               if (this.cafeSel == 1) {
                 for (var cafe3 = 1; cafe3 <= this.allCafes.length; cafe3++) {
-                  if (cafe3.id != this.cafeSel && this.Etapacafe2 == 0) {
+                  if (cafe3.id != this.cafeSel && this.cafeEtapa2 == 0) {
                     this.cafeEtapa2 = this.allCafes[cafe3].id;
                   }
                 }
@@ -402,6 +420,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal = true;
                 this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
@@ -468,6 +487,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal = true;
                 this.recarregarPagina();
               }
             }
@@ -550,6 +570,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal2 = true;
                 this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
@@ -617,6 +638,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal2 = true;
                 this.recarregarPagina();
               }
             }
@@ -692,6 +714,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal2 = true;
                 this.recarregarPagina();
               }
               if (this.cafeSel == 2) {
@@ -758,6 +781,7 @@ export default {
                     })
                     .then((resp) => console.log(resp.data));
                 });
+                this.verificaFinal2 = true;
                 this.recarregarPagina();
               }
             }
@@ -789,6 +813,9 @@ export default {
     axios
       .get("http://localhost:55560/api/participante")
       .then((resp) => (this.allParticipantes = resp.data));
+    axios
+      .get("http://localhost:55560/api/etapas")
+      .then((resp) => (this.allEtapas = resp.data));
   },
   computed: {
     carregarComboSalas: function () {
@@ -796,6 +823,22 @@ export default {
     },
     carregarComboCafes: function () {
       return this.allCafes;
+    },
+    carregarBtn: function () {
+      for (var i20 = 0; i20 < this.allEtapas.length; i20++) {
+        if (i20 == 0) {
+          var mostrar = this.allEtapas[i20].situacao;
+        }
+      }
+      return mostrar;
+    },
+  },
+  watch: {
+    carregarBtn: {
+      deep: true,
+      handler: function (newVal) {
+        this.carregarBtn = newVal;
+      },
     },
   },
 };
