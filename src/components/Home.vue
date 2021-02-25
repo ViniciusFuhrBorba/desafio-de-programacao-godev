@@ -13,9 +13,13 @@
     </div>
     <div class="title">
       <h1>Seja Bem-Vindo ao Controle do Treinamento</h1>
-      <p>Todas as informações necessários para conseguir utilizar esse sistema</p>
+      <p>
+        Todas as informações necessários para conseguir utilizar esse sistema
+      </p>
       <p>estão no arquivo README.md nesse repositório do GitHub</p>
-      <a href="https://github.com/Esk-Borba/desafio-programacao-godev-final">Repositório</a>
+      <a href="https://github.com/Esk-Borba/desafio-de-programacao-godev"
+        >Repositório</a
+      >
     </div>
   </div>
 </template>
@@ -37,13 +41,13 @@ body {
 .home {
   height: 60px;
   width: auto;
-  background-color: white; 
+  background-color: white;
 }
 .itens-header {
   padding: 20px;
   text-decoration: none;
 }
-.title{
+.title {
   margin-top: 330px;
 }
 </style>
