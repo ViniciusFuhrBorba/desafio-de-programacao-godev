@@ -40,7 +40,7 @@ Abra o terminal do Visual Studio Code, indo até Terminal na parte superior da t
  
 ### Baixando pacotes NuGet do projeto back-end
 Com o projeto back-end aberto no Visual Studio, vá até o Gerenciador de Soluções, podendo acessá-lo em Exibir no canto superior da tela ou diretamente em Gerenciador de Soluções no canto direito da tela. Após acessar o Gerenciador de Soluções, com o botão direito do mouse clique em desafioProg e vá até em Gerenciar Pacotes do NuGet.
-Ao clicar com o botão esquerdo em Gerenciar Pacotes do NuGet, abrirá um tela no Visual Studio, nesta tela você irá selecionar Procurar
+Ao clicar com o botão esquerdo em Gerenciar Pacotes do NuGet, abrirá um tela no Visual Studio, nesta tela você irá selecionar Instalado, e irá verificar se os Pacotes NuGet EntityFramework, Microsoft.AspNet.Cors e Microsoft.AspNet.WebApi.Cors estão instalados. Caso não estejam clique em procurar.
 Ao clicar em Procurar, no campo de pesquisa digite:
 EntityFramework, clique em instalar. Depois de finalizar a instalação do EntityFramework, vá novamente a aba de pesquisa e pesquise por Microsoft.AspNet.Cors, clique em instalar, e depois de finalizar a instalação do Microsoft.AspNet.Cors realize o mesmo procedimento mas dessa vez pesquisando por Microsoft.AspNet.WebApi.Cors.
  
